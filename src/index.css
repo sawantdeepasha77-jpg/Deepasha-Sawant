@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-maroon: #58111A;
+    --color-maroon-dark: #3D0B12;
+    --color-maroon-light: #F5E8EA;
+    --color-cream: #FAF7F2;
+    --color-cream-pure: #FFFDF9;
+    --color-espresso: #1A1412;
+    --color-espresso-muted: #4A423E;
+    --color-dusty-rose: #C88E8B;
+    --color-dusty-rose-light: #F2E3E2;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #FAF7F2;
+    color: #1A1412;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-serif-editorial {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+
+  .font-serif-display {
+    font-family: 'Instrument Serif', Georgia, serif;
+  }
+
+  .font-sans-editorial {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF7F2;
+}
+::-webkit-scrollbar-thumb {
+  background: #58111A;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3D0B12;
+}
+
+/* Editorial subtle marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Custom image placeholder frame pattern */
+.editorial-grid-pattern {
+  background-image: radial-gradient(#58111A 0.75px, transparent 0.75px);
+  background-size: 16px 16px;
+}
+
+.editorial-border {
+  border-color: rgba(88, 17, 26, 0.15);
+}
