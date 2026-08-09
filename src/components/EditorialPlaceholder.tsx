@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Camera, Upload, X, Eye, Image as ImageIcon } from 'lucide-react';
 
 interface EditorialPlaceholderProps {
@@ -23,6 +23,14 @@ export const EditorialPlaceholder: React.FC<EditorialPlaceholderProps> = ({
   const [customImage, setCustomImage] = useState<string | null>(defaultImage || null);
   const [isHovered, setIsHovered] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    if (defaultImage) {
+      setCustomImage(defaultImage);
+      setHasError(false);
+    }
+  }, [defaultImage]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -62,11 +70,12 @@ export const EditorialPlaceholder: React.FC<EditorialPlaceholderProps> = ({
 
   return (
     <div className={`relative group overflow-hidden ${className}`}>
-      {customImage ? (
+      {customImage && !hasError ? (
         <div className={`relative w-full ${getAspectClass()} overflow-hidden border border-[#58111A]/20 bg-[#FAF7F2]`}>
           <img
             src={customImage}
             alt={label}
+            onError={() => setHasError(true)}
             className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-[#58111A]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">

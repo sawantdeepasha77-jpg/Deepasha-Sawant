@@ -1,4 +1,5 @@
 import { CaseStudy, ExperienceItem, SkillCategory, Certification, BeyondInterest } from '../types';
+import { IMAGES } from '../assets/images';
 
 export const personalInfo = {
   name: "DEEPASHA SAWANT",
@@ -60,7 +61,7 @@ export const caseStudiesData: CaseStudy[] = [
         label: "SOCIAL MEDIA MARKETING & INFLUENCER CURATION - MAITRA ENTERTAINMENT",
         type: "campaign",
         description: "Social media marketing execution & high-volume influencer campaign visual for Maitra Entertainment.",
-        defaultImage: "/images/maitra-social-media.png"
+        defaultImage: IMAGES.maitraSocialMedia
       }
     ]
   },
@@ -95,7 +96,7 @@ export const caseStudiesData: CaseStudy[] = [
         label: "CAMPAIGN STRATEGY & REFURBISHMENT CONCEPT - STEELMAN FURNITURE",
         type: "campaign",
         description: "Repainting & Refurbishment Campaign Strategy visual for Steelman Furniture.",
-        defaultImage: "/images/steelman-campaign-strategy.png"
+        defaultImage: IMAGES.steelmanCampaignStrategy
       }
     ]
   },
@@ -130,7 +131,7 @@ export const caseStudiesData: CaseStudy[] = [
         label: "REAL ESTATE MARKETING & LEAD GENERATION STRATEGY",
         type: "campaign",
         description: "Analytics & lead generation campaign creative strategy for Real Estate.",
-        defaultImage: "/images/realestate-lead-generation.png"
+        defaultImage: IMAGES.realestateLeadGeneration
       }
     ]
   },
@@ -165,7 +166,7 @@ export const caseStudiesData: CaseStudy[] = [
         label: "CONTENT STRATEGY & SOCIAL MEDIA - RESTAURANT MARKETING",
         type: "campaign",
         description: "Content strategy & brand positioning diagram for Ratnagiri dining establishments.",
-        defaultImage: "/images/restaurant-content-strategy.png"
+        defaultImage: IMAGES.restaurantContentStrategy
       }
     ]
   }

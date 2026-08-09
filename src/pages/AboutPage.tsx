@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Download, ArrowRight, Award, GraduationCap, Compass, Heart, Sparkles, CheckCircle2 } from 'lucide-react';
 import { personalInfo, certificationsData, beyondInterestsData } from '../data/portfolioData';
 import { EditorialPlaceholder } from '../components/EditorialPlaceholder';
+import { IMAGES } from '../assets/images';
 
 interface AboutPageProps {
   onOpenResumeModal: () => void;
@@ -37,7 +38,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenResumeModal }) => {
                 type="portrait"
                 aspectRatio="portrait"
                 subtitle="Editorial portrait of Deepasha Sawant"
-                defaultImage="/images/about-who-i-am.png"
+                defaultImage={IMAGES.aboutWhoIAm}
               />
             </div>
           </div>
