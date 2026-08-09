@@ -1,5 +1,8 @@
 import { CaseStudy, ExperienceItem, SkillCategory, Certification, BeyondInterest } from '../types';
-import { IMAGES } from '../assets/images';
+import maitraImg from '../assets/images/maitra-social-media.png';
+import steelmanImg from '../assets/images/steelman-campaign-strategy.png';
+import realestateImg from '../assets/images/realestate-lead-generation.png';
+import restaurantImg from '../assets/images/restaurant-content-strategy.png';
 
 export const personalInfo = {
   name: "DEEPASHA SAWANT",
@@ -61,7 +64,7 @@ export const caseStudiesData: CaseStudy[] = [
         label: "SOCIAL MEDIA MARKETING & INFLUENCER CURATION - MAITRA ENTERTAINMENT",
         type: "campaign",
         description: "Social media marketing execution & high-volume influencer campaign visual for Maitra Entertainment.",
-        defaultImage: IMAGES.maitraSocialMedia
+        defaultImage: maitraImg
       }
     ]
   },
@@ -96,7 +99,7 @@ export const caseStudiesData: CaseStudy[] = [
         label: "CAMPAIGN STRATEGY & REFURBISHMENT CONCEPT - STEELMAN FURNITURE",
         type: "campaign",
         description: "Repainting & Refurbishment Campaign Strategy visual for Steelman Furniture.",
-        defaultImage: IMAGES.steelmanCampaignStrategy
+        defaultImage: steelmanImg
       }
     ]
   },
@@ -131,7 +134,7 @@ export const caseStudiesData: CaseStudy[] = [
         label: "REAL ESTATE MARKETING & LEAD GENERATION STRATEGY",
         type: "campaign",
         description: "Analytics & lead generation campaign creative strategy for Real Estate.",
-        defaultImage: IMAGES.realestateLeadGeneration
+        defaultImage: realestateImg
       }
     ]
   },
@@ -166,7 +169,7 @@ export const caseStudiesData: CaseStudy[] = [
         label: "CONTENT STRATEGY & SOCIAL MEDIA - RESTAURANT MARKETING",
         type: "campaign",
         description: "Content strategy & brand positioning diagram for Ratnagiri dining establishments.",
-        defaultImage: IMAGES.restaurantContentStrategy
+        defaultImage: restaurantImg
       }
     ]
   }

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { ArrowDownRight, ArrowRight, Sparkles, Layers, Target, Users, TrendingUp, Award, Compass, Heart, Activity } from 'lucide-react';
 import { personalInfo, caseStudiesData, experienceData, beyondInterestsData } from '../data/portfolioData';
 import { EditorialPlaceholder } from '../components/EditorialPlaceholder';
-import { IMAGES } from '../assets/images';
+import heroPortraitImg from '../assets/images/about-who-i-am.png';
 
 interface HomePageProps {
   onOpenResumeModal: () => void;
@@ -88,7 +88,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenResumeModal }) => {
                   type="portrait"
                   aspectRatio="portrait"
                   subtitle="A natural, editorial photograph of Deepasha Sawant"
-                  defaultImage={IMAGES.aboutWhoIAm}
+                  defaultImage={heroPortraitImg}
                 />
 
                 <div className="mt-3 pt-3 border-t border-[#58111A]/15 flex items-center justify-between text-[11px] font-sans-editorial text-[#1A1412]/70">

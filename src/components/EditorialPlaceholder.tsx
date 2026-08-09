@@ -21,22 +21,47 @@ export const EditorialPlaceholder: React.FC<EditorialPlaceholderProps> = ({
   showUploadOption = true
 }) => {
   const [customImage, setCustomImage] = useState<string | null>(defaultImage || null);
-  const [isHovered, setIsHovered] = useState(false);
+  const [imgSrc, setImgSrc] = useState<string | null>(defaultImage || null);
   const [showModal, setShowModal] = useState(false);
-  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    if (defaultImage) {
-      setCustomImage(defaultImage);
-      setHasError(false);
-    }
-  }, [defaultImage]);
+    const activeImage = customImage || defaultImage || null;
+    setImgSrc(activeImage);
+  }, [defaultImage, customImage]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       const url = URL.createObjectURL(file);
       setCustomImage(url);
+      setImgSrc(url);
+    }
+  };
+
+  const handleImgError = () => {
+    // If the imported module URL failed for any reason, try the public path fallback
+    if (typeof label === 'string' && imgSrc && !imgSrc.startsWith('/images/')) {
+      const lowerLabel = label.toLowerCase();
+      if (lowerLabel.includes('deepasha') || type === 'portrait') {
+        setImgSrc('/images/about-who-i-am.png');
+        return;
+      }
+      if (lowerLabel.includes('maitra')) {
+        setImgSrc('/images/maitra-social-media.png');
+        return;
+      }
+      if (lowerLabel.includes('steelman')) {
+        setImgSrc('/images/steelman-campaign-strategy.png');
+        return;
+      }
+      if (lowerLabel.includes('real estate') || lowerLabel.includes('realestate') || lowerLabel.includes('lead generation')) {
+        setImgSrc('/images/realestate-lead-generation.png');
+        return;
+      }
+      if (lowerLabel.includes('restaurant') || lowerLabel.includes('content strategy')) {
+        setImgSrc('/images/restaurant-content-strategy.png');
+        return;
+      }
     }
   };
 
@@ -68,14 +93,16 @@ export const EditorialPlaceholder: React.FC<EditorialPlaceholderProps> = ({
     }
   };
 
+  const activeSrc = imgSrc || defaultImage || customImage;
+
   return (
     <div className={`relative group overflow-hidden ${className}`}>
-      {customImage && !hasError ? (
+      {activeSrc ? (
         <div className={`relative w-full ${getAspectClass()} overflow-hidden border border-[#58111A]/20 bg-[#FAF7F2]`}>
           <img
-            src={customImage}
+            src={activeSrc}
             alt={label}
-            onError={() => setHasError(true)}
+            onError={handleImgError}
             className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-[#58111A]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
@@ -95,8 +122,6 @@ export const EditorialPlaceholder: React.FC<EditorialPlaceholderProps> = ({
         </div>
       ) : (
         <div
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
           className={`relative w-full ${getAspectClass()} bg-[#FAF7F2] border-2 border-dashed border-[#58111A]/25 p-6 md:p-8 flex flex-col justify-between transition-all duration-300 hover:border-[#58111A]/60 hover:bg-[#F5E8EA]/40`}
         >
           {/* Top header strip */}
@@ -105,7 +130,6 @@ export const EditorialPlaceholder: React.FC<EditorialPlaceholderProps> = ({
               <span className="w-1.5 h-1.5 rounded-full bg-[#58111A] animate-pulse"></span>
               {getTypeBadge()}
             </span>
-            <span>PLACEHOLDER</span>
           </div>
 
           {/* Center editorial message */}
@@ -126,7 +150,7 @@ export const EditorialPlaceholder: React.FC<EditorialPlaceholderProps> = ({
           {/* Bottom upload action */}
           <div className="flex items-center justify-between pt-3 border-t border-[#58111A]/10 text-xs">
             <span className="text-[10px] tracking-wider uppercase text-[#1A1412]/50">
-              EDITABLE SLOT
+              EDITORIAL VISUAL
             </span>
             {showUploadOption && (
               <label className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#58111A] hover:text-[#3D0B12] cursor-pointer hover:underline transition-colors uppercase tracking-wider">
@@ -140,7 +164,7 @@ export const EditorialPlaceholder: React.FC<EditorialPlaceholderProps> = ({
       )}
 
       {/* Expanded Modal */}
-      {showModal && customImage && (
+      {showModal && activeSrc && (
         <div className="fixed inset-0 z-50 bg-[#1A1412]/90 backdrop-blur-sm p-4 md:p-8 flex items-center justify-center">
           <div className="relative max-w-4xl w-full bg-[#FAF7F2] p-4 md:p-6 border border-[#58111A]">
             <div className="flex justify-between items-center mb-4">
@@ -154,7 +178,7 @@ export const EditorialPlaceholder: React.FC<EditorialPlaceholderProps> = ({
                 <X className="w-6 h-6" />
               </button>
             </div>
-            <img src={customImage} alt={label} className="w-full max-h-[75vh] object-contain mx-auto" />
+            <img src={activeSrc} alt={label} className="w-full max-h-[75vh] object-contain mx-auto" />
           </div>
         </div>
       )}
