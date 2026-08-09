@@ -63,6 +63,8 @@ export const EditorialPlaceholder: React.FC<EditorialPlaceholderProps> = ({
         return;
       }
     }
+    // If fallback public path also fails, set to null to avoid broken image loop
+    setImgSrc(null);
   };
 
   const getAspectClass = () => {
