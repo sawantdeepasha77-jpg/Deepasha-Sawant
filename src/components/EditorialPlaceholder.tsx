@@ -20,13 +20,15 @@ export const EditorialPlaceholder: React.FC<EditorialPlaceholderProps> = ({
   subtitle,
   showUploadOption = true
 }) => {
-  const [customImage, setCustomImage] = useState<string | null>(defaultImage || null);
+  const [customImage, setCustomImage] = useState<string | null>(null);
   const [imgSrc, setImgSrc] = useState<string | null>(defaultImage || null);
+  const [hasError, setHasError] = useState<boolean>(false);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const activeImage = customImage || defaultImage || null;
-    setImgSrc(activeImage);
+    const initialSrc = customImage || defaultImage || null;
+    setImgSrc(initialSrc);
+    setHasError(false);
   }, [defaultImage, customImage]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +37,7 @@ export const EditorialPlaceholder: React.FC<EditorialPlaceholderProps> = ({
       const url = URL.createObjectURL(file);
       setCustomImage(url);
       setImgSrc(url);
+      setHasError(false);
     }
   };
 
@@ -42,29 +45,25 @@ export const EditorialPlaceholder: React.FC<EditorialPlaceholderProps> = ({
     // If the imported module URL failed for any reason, try the public path fallback
     if (typeof label === 'string' && imgSrc && !imgSrc.startsWith('/images/')) {
       const lowerLabel = label.toLowerCase();
+      let fallback: string | null = null;
       if (lowerLabel.includes('deepasha') || type === 'portrait') {
-        setImgSrc('/images/about-who-i-am.png');
-        return;
+        fallback = '/images/about-who-i-am.png';
+      } else if (lowerLabel.includes('maitra')) {
+        fallback = '/images/maitra-social-media.png';
+      } else if (lowerLabel.includes('steelman')) {
+        fallback = '/images/steelman-campaign-strategy.png';
+      } else if (lowerLabel.includes('real estate') || lowerLabel.includes('realestate') || lowerLabel.includes('lead generation')) {
+        fallback = '/images/realestate-lead-generation.png';
+      } else if (lowerLabel.includes('restaurant') || lowerLabel.includes('content strategy')) {
+        fallback = '/images/restaurant-content-strategy.png';
       }
-      if (lowerLabel.includes('maitra')) {
-        setImgSrc('/images/maitra-social-media.png');
-        return;
-      }
-      if (lowerLabel.includes('steelman')) {
-        setImgSrc('/images/steelman-campaign-strategy.png');
-        return;
-      }
-      if (lowerLabel.includes('real estate') || lowerLabel.includes('realestate') || lowerLabel.includes('lead generation')) {
-        setImgSrc('/images/realestate-lead-generation.png');
-        return;
-      }
-      if (lowerLabel.includes('restaurant') || lowerLabel.includes('content strategy')) {
-        setImgSrc('/images/restaurant-content-strategy.png');
+
+      if (fallback && fallback !== imgSrc) {
+        setImgSrc(fallback);
         return;
       }
     }
-    // If fallback public path also fails, set to null to avoid broken image loop
-    setImgSrc(null);
+    setHasError(true);
   };
 
   const getAspectClass = () => {
@@ -95,7 +94,7 @@ export const EditorialPlaceholder: React.FC<EditorialPlaceholderProps> = ({
     }
   };
 
-  const activeSrc = imgSrc || defaultImage || customImage;
+  const activeSrc = !hasError ? (imgSrc || customImage || defaultImage || null) : null;
 
   return (
     <div className={`relative group overflow-hidden ${className}`}>
@@ -105,6 +104,7 @@ export const EditorialPlaceholder: React.FC<EditorialPlaceholderProps> = ({
             src={activeSrc}
             alt={label}
             onError={handleImgError}
+            referrerPolicy="no-referrer"
             className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-[#58111A]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
@@ -180,7 +180,7 @@ export const EditorialPlaceholder: React.FC<EditorialPlaceholderProps> = ({
                 <X className="w-6 h-6" />
               </button>
             </div>
-            <img src={activeSrc} alt={label} className="w-full max-h-[75vh] object-contain mx-auto" />
+            <img src={activeSrc} alt={label} referrerPolicy="no-referrer" className="w-full max-h-[75vh] object-contain mx-auto" />
           </div>
         </div>
       )}
