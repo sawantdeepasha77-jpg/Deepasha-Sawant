@@ -42,24 +42,35 @@ export const EditorialPlaceholder: React.FC<EditorialPlaceholderProps> = ({
   };
 
   const handleImgError = () => {
-    // If the imported module URL failed for any reason, try the public path fallback
-    if (typeof label === 'string' && imgSrc && !imgSrc.startsWith('/images/')) {
+    // If the primary image URL failed, try multi-tier static fallbacks (/images/ and root /)
+    if (typeof label === 'string' && imgSrc) {
       const lowerLabel = label.toLowerCase();
-      let fallback: string | null = null;
+      let fallbackFolder: string | null = null;
+      let rootFallback: string | null = null;
+
       if (lowerLabel.includes('deepasha') || type === 'portrait') {
-        fallback = '/images/about-who-i-am.png';
+        fallbackFolder = '/images/about-who-i-am.png';
+        rootFallback = '/about-who-i-am.png';
       } else if (lowerLabel.includes('maitra')) {
-        fallback = '/images/maitra-social-media.png';
+        fallbackFolder = '/images/maitra-social-media.png';
+        rootFallback = '/maitra-social-media.png';
       } else if (lowerLabel.includes('steelman')) {
-        fallback = '/images/steelman-campaign-strategy.png';
+        fallbackFolder = '/images/steelman-campaign-strategy.png';
+        rootFallback = '/steelman-campaign-strategy.png';
       } else if (lowerLabel.includes('real estate') || lowerLabel.includes('realestate') || lowerLabel.includes('lead generation')) {
-        fallback = '/images/realestate-lead-generation.png';
+        fallbackFolder = '/images/realestate-lead-generation.png';
+        rootFallback = '/realestate-lead-generation.png';
       } else if (lowerLabel.includes('restaurant') || lowerLabel.includes('content strategy')) {
-        fallback = '/images/restaurant-content-strategy.png';
+        fallbackFolder = '/images/restaurant-content-strategy.png';
+        rootFallback = '/restaurant-content-strategy.png';
       }
 
-      if (fallback && fallback !== imgSrc) {
-        setImgSrc(fallback);
+      if (fallbackFolder && imgSrc !== fallbackFolder && !imgSrc.startsWith('/images/')) {
+        setImgSrc(fallbackFolder);
+        return;
+      }
+      if (rootFallback && imgSrc !== rootFallback && imgSrc.startsWith('/images/')) {
+        setImgSrc(rootFallback);
         return;
       }
     }
